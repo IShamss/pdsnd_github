@@ -143,7 +143,7 @@ def station_stats(df):
     df['combination']=df['Start Station']+" --> "+df['End Station']
     common_path=df['combination'].mode()[0]
 
-    print(f'The most common start station is {common_start}\nThe most common end station is {common_end}\nAnd the most frequent combination of start & end stations are {common_path}')
+    print(f'The most common trip start station is {common_start}\nThe most common trip end station is {common_end}\nAnd the most frequent combination of start & end stations are {common_path}')
     
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
@@ -178,7 +178,7 @@ def user_stats(df):
 
     # TO DO: Display counts of user types
     user_count=df['User Type'].value_counts()
-    print(f'The number Users is\n{user_count}')
+    print(f'The number of Users is\n{user_count}')
     # TO DO: Display counts of gender
     #check to see if gender exists if not return that the data is not found as in the case of washington
     if 'Gender' in df :
@@ -189,10 +189,10 @@ def user_stats(df):
         earliest_year=df['Birth Year'].min()
         recent_year = df['Birth Year'].max()
         common_year = df['Birth Year'].mode()[0]
-        print(f'The number of Users according to gender is\n{gender_count} ')
+        print(f'The number of Users according to Gender is\n{gender_count} ')
         print(f'The earliest birth year is {int(earliest_year)} the most recent is {int(recent_year)} & the most common birth year is {int(common_year)}')
     else:
-        print('Sorry, We don\'t have that information in Washington')
+        print('Sorry, We don\'t have that information in Washington as of yet!')
         
 
     
