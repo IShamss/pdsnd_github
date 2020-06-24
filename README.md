@@ -21,3 +21,10 @@ The main logic of the project is in the file named bikeshare_2.py
 
 Udacity www.udacity.com
 Mohamed Shams https://github.com/IShamss/pdsnd_github
+
+### In Collaboration with
+
+Google
+Amazon
+Udacity
+Mode
