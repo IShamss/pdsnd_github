@@ -18,7 +18,6 @@ def get_filters():
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     """
     print('Hello! Let\'s explore some US bikeshare data!')
-    # TO DO: get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
 #     keep asking the user to enter a city and beign case insensitive
     while True:
         city=input('Please enter the city (Chicago, New York City, Washington): ')
@@ -30,9 +29,7 @@ def get_filters():
             print("Please enter a valid city")
             continue
 
-    # TO DO: get user input for month (all, january, february, ... , june)
-    #     the same as the city but asking the user if he is sure about his choice or if he wants to change it
-    # he might type yes instead of y but that can be handled easily
+   
     while True:
         month=input("Please enter a month (All, January, February, ... , June)")
         if month in ["all",'january', 'february', 'march', 'april', 'may', 'june']:
@@ -144,7 +141,7 @@ def station_stats(df):
     df['combination']=df['Start Station']+" --> "+df['End Station']
     common_path=df['combination'].mode()[0]
 
-    print(f'The most common start station is {common_start}\nThe most common end station is {common_end}\nAnd the most frequent combination of start & end stations are {common_path}')
+    print(f'The most common trip start station is {common_start}\nThe most common trip end station is {common_end}\nAnd the most frequent combination of start & end stations are {common_path}')
     
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
@@ -179,8 +176,10 @@ def user_stats(df):
 
     
     user_count=df['User Type'].value_counts()
-    print(f'The number Users is\n{user_count}')
+
+    print(f'The number of Users is\n{user_count}')
     
+
     #check to see if gender exists if not return that the data is not found as in the case of washington
     if 'Gender' in df :
         
@@ -190,10 +189,10 @@ def user_stats(df):
         earliest_year=df['Birth Year'].min()
         recent_year = df['Birth Year'].max()
         common_year = df['Birth Year'].mode()[0]
-        print(f'The number of Users according to gender is\n{gender_count} ')
+        print(f'The number of Users according to Gender is\n{gender_count} ')
         print(f'The earliest birth year is {int(earliest_year)} the most recent is {int(recent_year)} & the most common birth year is {int(common_year)}')
     else:
-        print('Sorry, We don\'t have that information in Washington')
+        print('Sorry, We don\'t have that information in Washington as of yet!')
         
 
     
@@ -214,17 +213,21 @@ def more_data(df):
 
 def main():
     while True:
+        # get the filters we need
         city, month, day = get_filters()
+        # load the data as a dataframe object 
         df = load_data(city, month, day)
 
+        # call the functions on the dataframe object to get the needed stats
         time_stats(df)
         station_stats(df)
         trip_duration_stats(df)
         user_stats(df)
         #cheking if the user wants to see 5 rows of data
         more_data(df)
-
+        # asking if the user would like to restart
         restart = input('\nWould you like to restart? Enter yes or no.\n')
+        # if not break out of the inclosing while loop
         if restart.lower() != 'yes':
             break
 
