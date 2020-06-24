@@ -3,11 +3,11 @@ import pandas as pd
 import numpy as np
 import datetime
 import json
-
+# importing the data files for each city
 CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
               'washington': 'washington.csv' }
-
+# first we need to filter the data according to the city
 def get_filters():
     """
     Asks user to specify a city, month, and day to analyze.
@@ -46,7 +46,7 @@ def get_filters():
             print("Please enter a valid month")
             continue     
     
-    # TO DO: get user input for day of week (all, monday, tuesday, ... sunday)
+    
     while True:
         day=input("Please enter a day (All, Monday, Tuesday, ... Sunday)")
         day=day.lower()
@@ -99,7 +99,8 @@ def load_data(city, month, day):
     return df
 
     
-
+# in the following we need to calculate the time duration for each function
+# So we will store the start time and subtrat that from the end time of each function
 
 def time_stats(df):
     """Displays statistics on the most frequent times of travel."""
@@ -107,13 +108,13 @@ def time_stats(df):
     print('\nCalculating The Most Frequent Times of Travel...\n')
     start_time = time.time()
 
-    # TO DO: display the most common month
+    
     common_month=df['month'].mode()[0]
 
-    # TO DO: display the most common day of week
+    
     common_day=df['day_of_week'].mode()[0]
 
-    # TO DO: display the most common start hour
+    
     df['common_hour'] = df['Start Time'].dt.hour
     common_hour = df['common_hour'].mode()[0]
     
@@ -127,18 +128,18 @@ def time_stats(df):
 
 
 def station_stats(df):
-    """Displays statistics on the most popular stations and trip."""
+    """Displays statistics on the most popular stations and trip. The trips are calculated by observing a common combination of start and end stations respectively"""
 
     print('\nCalculating The Most Popular Stations and Trip...\n')
     start_time = time.time()
 
-    # TO DO: display most commonly used start station
+    
     common_start=df['Start Station'].mode()[0]
 
-    # TO DO: display most commonly used end station
+    
     common_end=df['End Station'].mode()[0]
 
-    # TO DO: display most frequent combination of start station and end station trip
+    
     #combining the two end points then see what is the most frequent combination
     df['combination']=df['Start Station']+" --> "+df['End Station']
     common_path=df['combination'].mode()[0]
@@ -150,15 +151,15 @@ def station_stats(df):
 
 
 def trip_duration_stats(df):
-    """Displays statistics on the total and average trip duration."""
+    """Displays statistics on the total and average trip duration. By using the sum & mean"""
 
     print('\nCalculating Trip Duration...\n')
     start_time = time.time()
 
-    # TO DO: display total travel time
+    
     total_time=df['Trip Duration'].sum()
 
-    # TO DO: display mean travel time
+    
     mean_time=df['Trip Duration'].mean()
     
     total_hours=datetime.timedelta(seconds=int(total_time))
@@ -171,21 +172,21 @@ def trip_duration_stats(df):
 
 
 def user_stats(df):
-    """Displays statistics on bikeshare users."""
+    """Displays statistics on bikeshare users.Using gender and birth date"""
 
     print('\nCalculating User Stats...\n')
     start_time = time.time()
 
-    # TO DO: Display counts of user types
+    
     user_count=df['User Type'].value_counts()
     print(f'The number Users is\n{user_count}')
-    # TO DO: Display counts of gender
+    
     #check to see if gender exists if not return that the data is not found as in the case of washington
     if 'Gender' in df :
         
         gender_count=df['Gender'].value_counts()
 
-        # TO DO: Display earliest, most recent, and most common year of birth
+        
         earliest_year=df['Birth Year'].min()
         recent_year = df['Birth Year'].max()
         common_year = df['Birth Year'].mode()[0]
