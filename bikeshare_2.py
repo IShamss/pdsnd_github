@@ -46,7 +46,7 @@ def get_filters():
             print("Please enter a valid month")
             continue     
     
-    # TO DO: get user input for day of week (all, monday, tuesday, ... sunday)
+    
     while True:
         day=input("Please enter a day (All, Monday, Tuesday, ... Sunday)")
         day=day.lower()
@@ -213,17 +213,21 @@ def more_data(df):
 
 def main():
     while True:
+        # get the filters we need
         city, month, day = get_filters()
+        # load the data as a dataframe object 
         df = load_data(city, month, day)
 
+        # call the functions on the dataframe object to get the needed stats
         time_stats(df)
         station_stats(df)
         trip_duration_stats(df)
         user_stats(df)
         #cheking if the user wants to see 5 rows of data
         more_data(df)
-
+        # asking if the user would like to restart
         restart = input('\nWould you like to restart? Enter yes or no.\n')
+        # if not break out of the inclosing while loop
         if restart.lower() != 'yes':
             break
 
